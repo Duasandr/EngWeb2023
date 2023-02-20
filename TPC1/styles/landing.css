@@ -1,0 +1,97 @@
+div {
+    border: 1px dashed red
+}
+
+td {
+    border: 1px dashed blue
+}
+
+tr {
+    border: 1px dashed green
+}
+
+
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.profile_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 0.5rem;
+}
+
+.address_container {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.5rem;
+    justify-content: space-between;
+}
+
+.experience_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 0.5rem;
+}
+
+.profile_image_container {
+    width: 45%;
+    height: 40%;
+    overflow: hidden;
+    padding: 0.5rem;
+    border-radius: 15% 50%;
+}
+
+.profile_menu_container {
+    width: 45%;
+    height: 40%;
+    align-self: center;
+}
+
+.map_image_container {
+    width: 25%;
+    height: 20%;
+    align-self: center;
+    padding: 0.5rem;
+}
+
+.mapouter{
+    position:relative;
+    text-align:right;
+    height:100%;
+    width:100%;
+}
+
+.gmap_canvas {
+    overflow:hidden;
+    background:none!important;
+    height:100%;
+    width:100%;
+}
+
+.gmap_frame {
+    height:100%;
+    width:100%;
+}
+
+.vertical_text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.round_button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 4px 2px;
+    border-radius: 0.5rem;
+}
