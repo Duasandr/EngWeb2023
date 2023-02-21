@@ -1,5 +1,9 @@
-div {
-    border: 1px dashed red
+/*div {
+    border: 1px dashed red;
+}
+
+table {
+    border: 1px dashed palevioletred
 }
 
 td {
@@ -8,53 +12,165 @@ td {
 
 tr {
     border: 1px dashed green
+}*/
+
+@font-face {
+    font-family: "BebasNeue-Regular";
+    src: url("../fonts/BebasNeue-Regular.ttf");
 }
 
-
+@font-face {
+    font-family: "Tangerine-Regular";
+    src: url("../fonts/Tangerine-Regular.ttf");
+}
 
 img {
     max-width: 100%;
     max-height: 100%;
 }
 
-.profile_container {
+body {
     display: flex;
     align-items: flex-start;
-    justify-content: space-around;
-    padding: 0.5rem;
+    flex-direction: column;
+    flex-shrink: 1;
 }
 
 .address_container {
     display: flex;
-    align-items: flex-start;
-    padding: 0.5rem;
-    justify-content: space-between;
-}
-
-.experience_container {
-    display: flex;
+    align-self: stretch;
     align-items: flex-start;
     justify-content: space-around;
-    padding: 0.5rem;
+    padding: 8.5rem;
+    flex-shrink: 1;
+}
+
+/** Profile **/
+
+.profile_container {
+    display: flex;
+    align-items: flex-start;
+    padding: 8.5rem;
+    flex-shrink: 1;
+}
+
+.profile_container a:link { 
+    color: white;
+    text-decoration: none; 
+}
+
+
+.profile_container a:visited { 
+    color: white;
+    text-decoration: none; 
+}
+
+
+.profile_container a:hover { 
+    text-decoration: none; 
+}
+
+
+.profile_container a:active { 
+    text-decoration: none; 
 }
 
 .profile_image_container {
-    width: 45%;
-    height: 40%;
+    width: 25rem;
+    height: 50rem;
     overflow: hidden;
     padding: 0.5rem;
-    border-radius: 15% 50%;
+    display: block;
 }
 
+.profile_image_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: block;
+    border: 0.3rem solid black;
+}
+
+/** Profile Menu **/
+
 .profile_menu_container {
-    width: 45%;
-    height: 40%;
+    background-color: #558b5a;
+    width: 60rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     align-self: center;
+    margin-right: auto;
+    border-bottom: 0.3rem solid black;
+    border-right: 0.3rem solid black;
+    border-top: 0.3rem solid black;
+}
+
+.profile_menu_container h2 {
+    font-family: 'Tangerine-Regular';
+    font-size: 3.5rem;
+}
+
+.profile_box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.profile_box h1 {
+    font-family: 'BebasNeue-Regular';
+    font-size: 5rem;
+    margin-bottom: auto;
+}
+
+.button_container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.round_button {
+    background-color: #66b8ff;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 3.5rem;
+    margin-bottom: auto;
+    box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+/** Address **/
+
+.address_container {
+    background-color: #558b5a;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 5.5rem;
+}
+
+.address_container h1 {
+    font-family: 'BebasNeue-Regular';
+    font-size: 5rem;
+}
+
+.address_container h2 {
+    font-family: 'BebasNeue-Regular';
+    font-size: 2.5rem;
+}
+
+.address_info {
+    padding: 2.5rem;
+    margin-right: 13rem;
 }
 
 .map_image_container {
-    width: 25%;
-    height: 20%;
     align-self: center;
     padding: 0.5rem;
 }
@@ -62,15 +178,13 @@ img {
 .mapouter{
     position:relative;
     text-align:right;
-    height:100%;
-    width:100%;
 }
 
 .gmap_canvas {
     overflow:hidden;
     background:none!important;
-    height:100%;
-    width:100%;
+    width: 30rem;
+    height: 15rem;
 }
 
 .gmap_frame {
@@ -83,15 +197,48 @@ img {
     text-orientation: mixed;
 }
 
-.round_button {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.5rem;
-    margin: 4px 2px;
-    border-radius: 0.5rem;
+/** Experience **/
+
+.experience_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.experience_container h1 {
+    font-family: 'BebasNeue-Regular';
+    font-size: 5rem;
+    margin-bottom: auto;
+}
+
+.experience_container td {
+    font-size: 2.5rem;
+    width: 50%;
+    text-align: justify;
+    padding: 1rem;
+}
+
+.experience_container td:first-child {
+    border-right: solid 0.5rem black;
+    padding-right: 0.5rem;
+}
+
+footer {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iguanchor {
+    display: flex;
+    justify-content: flex-end;
+    align-items: right;
+    justify-items: right;
+    width: 100%;
+}
+
+.iguanchor img {
+    width: 30%;
 }
