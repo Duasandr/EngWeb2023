@@ -9,6 +9,10 @@ for person in data['pessoas']:
     person['id'] = f"p{x}"
     x += 1
 
+# Another way to do it
+#for index, person in enumerate(data['pessoas']):
+#    person['id'] = "p" + str(index)
+
 # Open backup file to save the updated dataset
 backupFile = open('./datasets/dataset-extra1-backup.json', 'w', encoding='utf-8')
 
