@@ -57,32 +57,39 @@ const server = http.createServer((req, res) => {
         })
         .catch(err => errorResponse(res, err))
     }
-    
+    // Not working. Don't know how async works in JS
     else if(req.url.match("/genderDist")) {
-        var map = new Map()
-
+        var distribution = {
+            f: 0,
+            m: 0,
+            o: 0
+        }
+    
+        
         axios.get(JSON_SERVER_URL + "?sexo=feminino")
         .then(resp => {
-            map.set('Female', resp.data.length) 
+            distribution.f = resp.data.length 
             console.log("Female: " + resp.data.length)
         })
         .catch(err => errorResponse(res, err))
 
         axios.get(JSON_SERVER_URL + "?sexo=masculino")
         .then(resp => {
-            map.set('Male', resp.data.length) 
+            distribution.m = resp.data.length 
             console.log("Male: " + resp.data.length)
         })
         .catch(err => errorResponse(res, err))
 
         axios.get(JSON_SERVER_URL + "?sexo=outro")
         .then(resp => {
-            map.set('Outher', resp.data.length) 
+            distribution.o = resp.data.length 
             console.log("Other: " + resp.data.length)
         })
         .catch(err => errorResponse(res, err))
 
-        delete map
+        console.log("Distribution: " + JSON.stringify(distribution))
+        res.writeHead(200, { 'Content-Type': CONTENT_TYPE_HTML })
+        res.end(mypages.genGenderDistPage(distribution, date, SERVER_PORT))
     }
     // Serves the CSS file
     else if(req.url == '/w3.css') {
