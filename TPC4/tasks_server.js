@@ -11,6 +11,7 @@ function collectRequestBodyData(request, callback) {
     if(request.headers['content-type'] === 'application/x-www-form-urlencoded') {
         let body = '';
         request.on('data', chunk => {
+            console.log("chunk: " + chunk)
             body += chunk.toString();
         });
         request.on('end', () => {
@@ -33,7 +34,7 @@ function writeResponse(res, code, content){
 /**
  * Server to handle requests
  */
-var alunosServer = http.createServer(function (req, res) {
+var tasksServer = http.createServer(function (req, res) {
     // Log request
     var date = new Date().toISOString().substring(0, 16)
     console.log(req.method + " " + req.url + " " + date)
@@ -51,46 +52,126 @@ var alunosServer = http.createServer(function (req, res) {
                     axios.get(JSON_SERVER_URL + "tasks")
                         .then(response => {
                             var tasks = response.data
-                            // Add code to render main page 
                             writeResponse(res, 200, templates.mainPage(tasks, date))
                         })
-                        .catch(function(erro){
-                            writeResponse(res, 200, templates.errorPage("Unable to collect tasks", date))
+                        .catch(error => {
+                            console.log("Error: " + error)
+                            writeResponse(res, 200, templates.errorPage(200, "Unable to collect tasks ", date))
                         })
                 }
             break   
             case "POST":
-                if(req.url == '/submit'){
+                // POST /tasks -------------------------------------------------------------------
+                if(req.url == '/submitTask'){
+                    collectRequestBodyData(req, result => {
+                        if(result){    
+                            console.dir(result)
+
+                            if(result.who == "" || result.what == "" || result.dueDate == ""){
+                                console.log("Unable to collect data from body.")
+
+                                writeResponse(res, 201, templates.errorPage(201, "Unable to collect data from body. Empty fields.", date))
+                                return
+                            }
+
+                            if(result.dueDate < date){
+                                console.log("Unable to collect data from body.")
+
+                                writeResponse(res, 201, templates.errorPage(201, "Date must be in the future.", date))
+                                return
+                            }
+
+                            // Check a user is in the database
+                            axios.get(JSON_SERVER_URL + "users/?name=" + result.who)
+                            .then(response => {
+                                // If user is not in the database
+                                if(response.data.length == 0){
+                                    console.log("Unable to find user: " + result.who)
+
+                                    writeResponse(res, 201, templates.errorPage(201, "Unable to find user: " + result.who, date))
+                                    return
+                                }
+                                
+                                console.log("User found: " + response.data)
+
+                                // Insert task in the database
+                                axios.post(JSON_SERVER_URL + "tasks", result)
+                                    // If task is inserted in the database
+                                    .then(response => {
+                                        console.log("Task submited: " + response.data)
+
+                                        writeResponse(res, 201, templates.taskPostConfirmPage(result, date))
+                                    })
+                                
+                                    // If task is not inserted in the database
+                                    .catch(error => {
+                                        console.log("Unable to submit task. Error: " + error)
+                                    
+                                        writeResponse(res, 201, templates.errorPage(201, "Unable to add task.", date))
+                                    
+                                    })  
+                                
+                            })
+                            // If user is not in the database
+                            .catch(error => {
+                                console.log("Unable to collect users data. Error: " + error)
+
+                                writeResponse(res, 201, templates.errorPage(201, "Unable to find user: " + data.who, date))
+                                
+                            })
+
+                            return
+                        }
+                        
+                        // If no data is collected
+                        writeResponse(res, 201,  templates.errorPage(201, "Unable to collect data", date))
+                        
+                    })
+
+                    return
+                }
+                if(req.url == '/submitDone'){
                     collectRequestBodyData(req, result => {
                         if(result){
-                            axios.post('http://localhost:3000/alunos', result)
-                                .then(resp => {
-                                    console.log(resp.data);
-                                    writeResponse(res, 201, "<p>Task submited<p>")
+                            // Delete old entry
+                            axios.delete(JSON_SERVER_URL + "tasks/" + result.id)
+                            .then(response => {
+                                console.log("Task deleted")
+                                
+                                // Update task
+                                axios.post(JSON_SERVER_URL + "tasks", result)
+                                .then(response => {
+                                    console.log("Task submited")
+
+                                    writeResponse(res, 201, templates.taskPostConfirmPage(result, date))
                                 })
                                 .catch(error => {
-                                    console.log('Erro: ' + error);
-                                    writeResponse(res, 500, templates.errorPage("Unable to insert record...", date))
-                                });
-                        }
-                        else{
-                            writeResponse(res, 201, "<p>Unable to collect data from body...</p>")
+                                    console.log("Unable to submit task. Error: " + error)
+
+                                    writeResponse(res, 201, templates.errorPage(201, "Unable to update task.", date))
+                                })
+                            })
+                            .catch(error => {
+                                console.log("Unable to delete task. Error: " + error)
+
+                                writeResponse(res, 201, templates.errorPage(201, "Unable to update task.", date))
+                            })
                         }
                     })
                 }
                 else{
-                    writeResponse(res, 201, "<p>Unsupported POST request...</p>")
+                    writeResponse(res, 201, templates.errorPage(201, "Unsupported request", date))
                 }
                 break
             default: 
-                writeResponse(res, 201, "<p>Unsupported request...</p>")
+                writeResponse(res, 201, templates.errorPage(201, "Unsupported request", date))
         }
     }
     
 })
 
-alunosServer.listen(7777, ()=>{
-    console.log("Servidor à escuta na porta 7777...")
+tasksServer.listen(7777, ()=>{
+    console.log("Server listening on port 7777...")
 })
 
 
