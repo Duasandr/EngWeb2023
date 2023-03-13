@@ -1,0 +1,28 @@
+{
+	"tasks": [
+		{
+			"id": "0",
+			"dueDate": "20-04-2023",
+			"who": "Sandro",
+			"what": "Make task_server",
+			"completed": false
+		},
+		{
+			"id": "1",
+			"dueDate": "10-04-2023",
+			"who": "Sandro",
+			"what": "Make template html",
+			"completed": true
+		}
+	], 
+	"users": [
+		{
+			"id": "0",
+			"name": "admin"
+		},
+		{
+			"id": "1",
+			"name": "Sandro"
+		}
+	]
+}
