@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "dueDate": "2019-01-01",
+      "who": "Sandro",
+      "what": "Do something",
+      "resolved": "false"
+    },
+    {
+      "dueDate": "",
+      "who": "Sandro",
+      "what": "Do something else",
+      "resolved": "false",
+      "id": "X_kV4mb"
+    }
+  ],
+  "users": [
+    {
+      "name": "Sandro Duarte",
+      "id": 1
+    }
+  ]
+}
