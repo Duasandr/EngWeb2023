@@ -1,5 +1,17 @@
-version: '1'
+version: '3.1'
 services:
+  interface:
+    container_name: interface
+    build: ./interface
+    restart: always
+    environment:
+      - API_URL=http://data_api:7001
+      - PORT=7000
+    ports:
+      - "13000:7000"
+    networks:
+      - afericao_net
+
   data_api:
     container_name: data_api
     build: ./data_api

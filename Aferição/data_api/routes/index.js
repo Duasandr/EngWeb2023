@@ -2,14 +2,6 @@ var express = require('express');
 var router = express.Router();
 var EMD = require('../controllers/emd');
 
-
-// GET /api/emd
-router.get('/api/emd', (req, res, next) => {
-  EMD.list()
-    .then(data => {res.jsonp(data)})
-    .catch(err => {res.status(500).jsonp(err)})
-})
-
 // GET /api/emd/:id
 router.get('/emd/:id', (req, res, next) => {
   EMD.detail(req.params.id)
@@ -23,6 +15,19 @@ router.get('/emd/modalidades', (req, res, next) => {
     .then(data => res.jsonp(data))
     .catch(err => res.status(500).jsonp(err))
 })
+
+// GET /api/emd
+router.get('/emd', (req, res, next) => {
+  if(!req.query.res) {
+    EMD.list()
+      .then(data => {res.jsonp(data)})
+      .catch(err => {res.status(500).jsonp(err)})
+  }
+  else {
+    next()
+  }
+})
+
 
 // GET /api/emd?res=OK
 router.get('/emd', (req, res, next) => {
