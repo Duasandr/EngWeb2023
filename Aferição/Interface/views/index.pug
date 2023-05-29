@@ -14,7 +14,7 @@ block content
           each item in list
               tr 
                 td #{item.dataEMD}
-                td #{item.nome.primeiro}
+                td #{item.nome.primeiro + ' ' + item.nome.último}
                 td #{item.resultado}
                 td 
                   a(href="/emd/" + item._id) EMD

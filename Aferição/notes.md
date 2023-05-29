@@ -2,22 +2,34 @@
 
 ```npx express-generator --view=pug```
 
-# Instalar dependências
+# Install dependencies
 
 ```npm install```
 
-# Executar
+# Execute
 
 ```npm start```
 
 # Mongo import data from jsonArray
 
-```mongoimport --db dbName --collection collectionName --file fileName.json --jsonArray```
+```mongoimport -d dbName -c collectionName --file fileName.json --jsonArray```
 
-# Build mongo image
+# Build image
 
-```docker build -t mongo .```
+```docker build -t imageName .```
 
-# Run mongo image
+# Run image
 
-```docker run -d -p 27017:27017 --name mongo mongo```
+```docker run -p 3000:3000 -d containerId```
+
+# Container list
+
+```docker ps```
+
+# Run shell
+
+```docker exec -it containerId /bin/bash```
+
+# Run shell script
+
+```docker exec -it containerId /bin/bash -c "sh script.sh"```

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var emdSchema = new Schema({
     _id: String,
     index: Number,
-    dataEMD: Date,
+    dataEMD: String,
     nome: { 
         primeiro: String, 
         último: String 

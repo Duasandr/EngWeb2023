@@ -2,7 +2,7 @@ var EMD = require('../models/emd');
 
 // list of all EMDs.
 exports.list = () => {
-    return EMD.find({}, {"_id": 1, "nome": 1, "dataEMD": 1, "resultado": 1})
+    return EMD.find({}, {"_id": 1, "nome.primeiro": 1, "nome.último":1, "dataEMD": 1, "resultado": 1})
                 .sort({"nome.primeiro": 1})
                 .then(res => {
                     return res
@@ -80,3 +80,15 @@ exports.clube = (clube) => {
                     return err
                 })
 }
+
+// insert a new EMD
+exports.insert = (data) => {
+    return EMD.create(data)
+                .then(res => {
+                    return res
+                })
+                .catch(err => {
+                    return err
+                })
+}
+
