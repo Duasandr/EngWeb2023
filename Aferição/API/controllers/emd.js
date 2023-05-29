@@ -83,12 +83,14 @@ exports.clube = (clube) => {
 
 // insert a new EMD
 exports.insert = (data) => {
+    console.log(data)
     return EMD.create(data)
                 .then(res => {
                     return res
-                })
+                }
+                )
                 .catch(err => {
                     return err
-                })
+                }
+                )
 }
-

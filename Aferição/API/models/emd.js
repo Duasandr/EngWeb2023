@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var nomeSchema = new Schema({
+    primeiro: String,
+    último: String
+});
+
 var emdSchema = new Schema({
-    _id: String,
     index: Number,
     dataEMD: String,
-    nome: { 
-        primeiro: String, 
-        último: String 
-    },
+    nome: nomeSchema,
     idade: Number,
     género: String,
     morada: String,
